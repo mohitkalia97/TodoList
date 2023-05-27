@@ -1,0 +1,11 @@
+.todoscontainer {
+    display: flex;
+    justify-content: space-between;
+}
+.opentodo {
+    display:list-item;
+}
+
+.closedtodo {
+    display: list-item;
+}
