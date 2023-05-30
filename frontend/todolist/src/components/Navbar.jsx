@@ -1,24 +1,34 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FormDialog from "./FormDialog";
 
 export default function Navbar() {
   const [username, setUsername] = useState("");
-  let history = useNavigate();
+  const [isLoginFormOpen, setLoginFormOpen] = useState(false);
+
+  let navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    setLoginFormOpen(true);
+  };
+
+  const handleClose = () => {
+    setLoginFormOpen(false);
+  };
 
   const handleLogout = () => {
-    history.push("/");
-  }
+    navigate("/");
+  };
 
   return (
     <>
+      Signed in as {username}
 
-        Signed in as {username}  {/* todo */}
- 
-        <button>Login</button>
-        <button onClick={handleLogout}>Logout</button>
-        
-
-    
+      <button onClick={handleLoginClick}>Login</button>
+      {isLoginFormOpen && (
+        <FormDialog onClose={handleClose} />
+      )}
+      <button onClick={handleLogout}>Logout</button>
     </>
-  )
+  );
 }
