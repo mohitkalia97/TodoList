@@ -5,13 +5,36 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
-import React from 'react';
+
+import { useRef, useState, useEffect} from 'react';
+import FetchHelper from '../FetchHelper';
     
 
 export default function FormDialog({ onClose }) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
-    React.useEffect(() => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+
+    const inputUsername = useRef("");
+    const outputUsername = useRef("");
+
+    useEffect(()=> {
+        FetchHelper({ value: username,  })
+    },[open])
+
+    //TODO: POSTE USERNAME PASSWOD USW AN DAS BACKEND
+
+    const handleInputUsernameChange = (e) => {
+        setUsername(e.target.value);
+    }
+
+    const handleInputPasswordChange = (e) => {
+        setPassword(e.target.value);
+    }
+
+    useEffect(() => {
         setOpen(true);
     }, []);
 
@@ -28,18 +51,32 @@ export default function FormDialog({ onClose }) {
         <Dialog open={open} onClose={handleClose}>
             <DialogContent>
                 <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We
-                    will send updates occasionally.
+                    Please enter your Username and Password!
                 </DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
-                    id="name"
-                    label="Email Address"
+                    id="username"
+                    label="Username"
                     type="email"
                     fullWidth
                     variant="standard"
+                    ref={inputUsername}
+                    onChange={handleInputUsernameChange}
                 />
+
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="password"
+                    label="Password"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    ref={outputUsername}
+                    onChange={handleInputPasswordChange}
+                />
+                
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
