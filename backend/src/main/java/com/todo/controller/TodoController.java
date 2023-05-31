@@ -11,43 +11,42 @@ import java.util.List;
 @RequestMapping("/todo")
 @CrossOrigin("http://127.0.0.1:5173/")
 public class TodoController {
-    private TodoService todoService;
-
+    private final TodoService todoService;
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
     @GetMapping("/find-all-open-todos")
-    public ResponseEntity findAllOpenTodos(){
+    public ResponseEntity<List<Todo>> findAllOpenTodos(){
         List<Todo> allOpenTodos = todoService.findAllOpenTodos();
         return ResponseEntity.ok(allOpenTodos);
     }
 
     @GetMapping("/find-all-closed-todos")
-    public ResponseEntity findAllClosedTodos(){
+    public ResponseEntity<List<Todo>> findAllClosedTodos(){
         List<Todo> allClosedTodos = todoService.findAllClosedTodos();
         return ResponseEntity.ok(allClosedTodos);
     }
 
     @PostMapping("/add-todo")
-    public ResponseEntity addTodo(@RequestBody Todo todo){
+    public ResponseEntity<Void> addTodo(@RequestBody Todo todo){
         todoService.addTodo(todo);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/delete-todo/{id}")
-    public ResponseEntity deleteTodo(@PathVariable Long id){
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id){
         todoService.deleteTodo(id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/delete-all-todos")
-    public ResponseEntity deleteAllTodos(){
+    public ResponseEntity<Void> deleteAllTodos(){
         todoService.deleteAllTodos();
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/change-status/{id}")
-    public ResponseEntity changeStatusById(@PathVariable Long id){
+    public ResponseEntity<Void> changeStatusById(@PathVariable Long id){
         todoService.changeStatusById(id);
         return ResponseEntity.ok().build();
     }
