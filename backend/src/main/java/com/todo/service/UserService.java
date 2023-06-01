@@ -24,4 +24,8 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public boolean doesUsernameExist(String username) {
+        return userRepository.findByUsername(username) != null;
+    }
 }

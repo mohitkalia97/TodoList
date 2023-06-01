@@ -9,6 +9,8 @@ public class User {
     private Long id;
     @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
+
+    @Column(unique = true)
     private String username;
     private String password;
 

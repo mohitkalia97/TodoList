@@ -21,6 +21,12 @@ public class UserController {
     @Id
     private Long id;
 
+    @GetMapping("/check-username/{username}")
+    public ResponseEntity<Boolean> checkUsername(@PathVariable String username){
+        boolean isExisting = userService.doesUsernameExist(username);
+        return ResponseEntity.ok(isExisting);
+    }
+
     @PostMapping("/add-user")
     public ResponseEntity<Void> addUser(@RequestBody User user){
         userService.addUser(user);
