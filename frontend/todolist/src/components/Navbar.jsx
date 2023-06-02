@@ -8,6 +8,7 @@ export default function Navbar( ) {
   const [username, setUsername] = useState("");
   const [isLoginFormOpen, setLoginFormOpen] = useState(false);
   const [isSignUpFormOpen, setSignUpFormOpen] = useState(false);
+  const [isUserSignedUp, setIsUserSignedUp] = useState(false);
 
   // useEffect(()=>{
   //   FetchHelper({value: username, url: "http://localhost:8080/user/find-user-by-username-and-password/{username, password}", method: "GET"})
@@ -42,8 +43,11 @@ export default function Navbar( ) {
         <button onClick={handleLoginClick}>Login</button>
         {isLoginFormOpen && <FormDialogLogin onClose={() => setLoginFormOpen(false)} /> }
         <button onClick={handleLogout}>Logout</button>
-        <button onClick={handleSignUp}> Sign up</button>
-        {isSignUpFormOpen && <FormDialogSignUp onClose={() => setSignUpFormOpen(false)} onUsernameChange={handleUsernameChange}/> }
+
+        {!isUserSignedUp && <button onClick={handleSignUp}> Sign up</button> }
+        
+        {isSignUpFormOpen && <FormDialogSignUp onClose={() => setSignUpFormOpen(false)} 
+        onUsernameChange={handleUsernameChange} onUserSignedUp={setIsUserSignedUp}/> }
 
     
     
