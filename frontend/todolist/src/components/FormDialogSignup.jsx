@@ -11,7 +11,7 @@ import { useRef, useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function FormDialogSignUp({ onClose, onUsernameChange, onUserSignedUp }) {
+export default function FormDialogSignUp({ onClose, onUserSignedUp }) {
     const [open, setOpen] = useState(false);
 
     const [username, setUsername] = useState("");
@@ -38,7 +38,6 @@ export default function FormDialogSignUp({ onClose, onUsernameChange, onUserSign
             });
             console.log(response);
             
-            onUsernameChange(username);
             onUserSignedUp(true);
             handleClose();
             history("/");
@@ -52,7 +51,6 @@ export default function FormDialogSignUp({ onClose, onUsernameChange, onUserSign
 
     };
     
-
     const handleInputUsernameChange = (e) => {
         setUsername(e.target.value);
     }

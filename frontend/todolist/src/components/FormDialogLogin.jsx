@@ -8,48 +8,40 @@ import DialogContentText from '@mui/material/DialogContentText';
 
 import { useRef, useState, useEffect} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
     
 
-export default function FormDialogLogin({ onClose }) {
+export default function FormDialogLogin({ onClose, onUsernameChange }) {
+    
     const [open, setOpen] = useState(false);
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [userRole, setUserrole] = useState("NORMAL");
 
-
     const inputUsername = useRef("");
     const outputUsername = useRef("");
 
+    let history = useNavigate();
+
     const fetchData = async () => {
         try {
-        const response = await axios.post("http://localhost:8080/user/add-user", 
+        const response = await axios.get(`http://localhost:8080/user/check-username/${username}`, 
         {
             username: username,
-            password: password,
-            userRole: userRole
         });
         console.log(response);
+        if(response.status === 200) {
+            onUsernameChange(username);  
+            history("/user")
+        }
         } catch (error) {
             console.error(error);
         }
-
-        handleClose();
-    };
-    
-        // FetchHelper({ value: [username, password], url:"http://localhost:8080/user/add-user", method: "POST" })
-        //     .then(userdata => {
-        //     // setUsername(userdata.username);
-        //     // setPassword(userdata.password);
-        //     console.log((zus));
-            
-        // })
-        // .catch(error => {
-        //     // Handle any errors from the API request
-        //     console.error(error);
-        //   });
         
-    
+        handleClose();
+
+        
+    };
         
 
     const handleInputUsernameChange = (e) => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import FormDialogLogin from "./FormDialogLogin";
@@ -10,12 +10,7 @@ export default function Navbar( ) {
   const [isSignUpFormOpen, setSignUpFormOpen] = useState(false);
   const [isUserSignedUp, setIsUserSignedUp] = useState(false);
 
-  // useEffect(()=>{
-  //   FetchHelper({value: username, url: "http://localhost:8080/user/find-user-by-username-and-password/{username, password}", method: "GET"})
-  //   .then(response => setUsername(response.username))
-  // },[username])
-
-  const handleUsernameChange = (newUsername) => {
+  const handleUsernameChange = (newUsername) => {
     setUsername(newUsername);
   }
 
@@ -23,34 +18,33 @@ export default function Navbar( ) {
 
   const handleLoginClick = () => {
       setLoginFormOpen(true);
-      
-      
   }
 
   const handleLogout = () => {
-    history.push("/");
+    history("/");
   }
 
   const handleSignUp = () => {
     setSignUpFormOpen(true);
   }
 
+  
+  
+
   return (
     <>
-
-        Signed in as {username}
+        {username ? <>Logged in as {username}</> : <>Please log in or sign up!</>}
  
         <button onClick={handleLoginClick}>Login</button>
-        {isLoginFormOpen && <FormDialogLogin onClose={() => setLoginFormOpen(false)} /> }
+        {isLoginFormOpen && <FormDialogLogin onUsernameChange={handleUsernameChange} onClose={() => setLoginFormOpen(false)} 
+         /> }
         <button onClick={handleLogout}>Logout</button>
 
         {!isUserSignedUp && <button onClick={handleSignUp}> Sign up</button> }
         
         {isSignUpFormOpen && <FormDialogSignUp onClose={() => setSignUpFormOpen(false)} 
-        onUsernameChange={handleUsernameChange} onUserSignedUp={setIsUserSignedUp}/> }
-
-    
-    
+         onUserSignedUp={setIsUserSignedUp}
+         />}
     </>
   )
 }
