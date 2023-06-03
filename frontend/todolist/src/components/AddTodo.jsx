@@ -9,7 +9,7 @@ export default function AddTodo({ onAdd }) { // onAdd function as a prop
   const handleAdd = () => {
     const value = addButton.current.value;
     FetchHelper({ value, url:"http://localhost:8080/todo/add-todo", method:"POST" })
-      .then(() => onAdd()) // After the request is successful, call onAdd to refetch the todos
+      .then(() => onAdd()) // refetch
   }
 
   return (

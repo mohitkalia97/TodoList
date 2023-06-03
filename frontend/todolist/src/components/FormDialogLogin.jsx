@@ -18,6 +18,7 @@ export default function FormDialogLogin({ onClose, onUsernameChange }) {
     const [password, setPassword] = useState("");
     const [userRole, setUserrole] = useState("NORMAL");
 
+
     const inputUsername = useRef("");
     const outputUsername = useRef("");
 
@@ -32,7 +33,7 @@ export default function FormDialogLogin({ onClose, onUsernameChange }) {
         console.log(response);
         if(response.status === 200) {
             onUsernameChange(username);  
-            history("/user")
+            history(`user/${username}`)
         }
         } catch (error) {
             console.error(error);

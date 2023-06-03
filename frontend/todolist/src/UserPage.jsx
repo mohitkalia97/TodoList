@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AddTodo from "./components/AddTodo";
-import Logo from "./components/Logo";
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar";
 import Todos from "./components/Todos";
 import FetchHelper from "./FetchHelper";
 import "/src/App.css";
@@ -11,6 +11,7 @@ function UserPage() {
 const [todoValue, setTodoValue] = useState("");
 const [openTodos, setOpenTodos] = useState([]);
 const [closedTodos, setClosedTodos] = useState([]);
+const {username} = useParams();
 
 useEffect(() => {
   fetchTodos();
@@ -59,11 +60,14 @@ const changeTodoStatus = (id) => {
 
   return (
     <>
+    <h1>Welcome {username}!</h1> <h2>Feel free to use your personal Todolist!</h2>
         <Navbar />
-        <Logo/>
-        <AddTodo onChange={fetchTodos} onAdd={handleTodoChange} />
+        <div>
+          <AddTodo onChange={fetchTodos} onAdd={handleTodoChange} /> 
+        </div>
         <Todos openTodos={openTodos} closedTodos={closedTodos} 
         handleTodoDelete={handleTodoDelete} changeTodoStatus={changeTodoStatus} />
+        
     </>
   )
 }
